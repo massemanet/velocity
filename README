@@ -1,0 +1,18 @@
+velocity is a schema-less, multi-keyed dictionary of fixed temporal size.
+
+Conceptually, the entries consist of a list of tagged tuples. The
+entries are indexed by some number of the tagged tuples. There is
+no primary key and no schema. Each insert can be of unique form.
+
+Each insert will remove all entries that are "too old", i.e. older
+than the timeout. The timeout is settable through the cfg function,
+e.g. velocity:cfg(timeout,2) sets the timeout to 2 hours.
+
+velocity:insert takes two arguments, both of which are a list of
+tagged tuples. The elements of the first list are indexed, the
+elements of the second list are not. E.g. calling
+
+velocity:insert([{a,"A"},{b,"B"}],[{c,"C"},{d,"D"}]).
+
+will allow you to find this entry by calling velocity:find(a,"A")
+or velocity:find(b,"B").
