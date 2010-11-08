@@ -97,13 +97,12 @@ assert_table(Tab) ->
 mk_table(Tab) ->
   {Pid,Ref} = spawn_monitor(mk_table(Tab,self())),
   receive
-    {ok,Pid} -> erlang:demonitor(Ref,[flush]);
+    {ok,Pid}              -> erlang:demonitor(Ref,[flush]);
     {'DOWN',Ref,_,_,Info} -> exit({error_creating,Tab,Info})
   end.
   
 mk_table(Tab,Daddy) ->
   fun() ->
-      catch ets:delete(Tab),
       ets:new(Tab,[named_table,ordered_set,public]),
       cfg(Tab,timeout,default(timeout)),
       Daddy ! {ok,self()},
