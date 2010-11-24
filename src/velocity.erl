@@ -83,7 +83,7 @@ delete(Tab) ->
 % find an entry by an index
 find(Tab,Tag,Val) ->
   assert_table(Tab),
-  [[{ts,TS}|lookup(Tab,TS)] || TS <- find_ts(Tab,Tag,Val)].
+  [{TS,lookup(Tab,TS)} || TS <- find_ts(Tab,Tag,Val)].
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% internal
