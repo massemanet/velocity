@@ -66,7 +66,7 @@ delete(Tab,Tag,Val) ->
   assert_table(Tab),
   case find_ts(Tab,Tag,Val) of
     [] -> true;
-    TS -> delete(Tab,TS)
+    TSs-> [delete(Tab,TS) || TS <- TSs]
   end.
 
 % delete an entry (and its indices)
